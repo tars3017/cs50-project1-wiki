@@ -9,7 +9,7 @@ from django import forms
 from django.http import HttpResponseRedirect
 
 class NewSearchForm(forms.Form):
-    word = forms.CharField(label="search for", widget=forms.TextInput(attrs={'class': 'search'}))
+    word = forms.CharField(label="Search for", widget=forms.TextInput(attrs={'class': 'search'}))
     
 
 def index(request):
@@ -44,8 +44,18 @@ def search(request):
                         "content": markdown(s),
                         "form": NewSearchForm()
                     })
+            else:
+                candidate_list = []
+                for entry in util.list_entries():
+                    if keyword in entry:
+                        candidate_list.append(entry)
+                if len(candidate_list):
+                    return render(request, "encyclopedia/fuzzy_result.html", {
+                        "page_title": "Search" + keyword,
+                        "candidates": candidate_list,
+                        "form": NewSearchForm()
+                    })
     return render(request, "encyclopedia/search.html", {
-        "form": NewSearchForm(),
-        "keyword": keyword
+        "form": NewSearchForm()
     })
 

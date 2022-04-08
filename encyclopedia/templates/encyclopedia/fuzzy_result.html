@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    {{ page_title }}
+{% endblock %}
+
+{% block body %}
+    <h3>You might be looking for:</h3>
+    <ul>
+        {% for candidate in candidates %}
+            <li><a href="{% url 'load_content' candidate %}">{{ candidate }}</a></li> 
+        {% endfor %} 
+    </ul>
+    
+{% endblock %}
