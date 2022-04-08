@@ -22,9 +22,10 @@ textarea {
 }
 
 .search {
-    width: 100%;
+    width: 90%;
     font-size: 15px;
     line-height: 15px;
+    background-color: blue;
 }
 
 .sidebar {
