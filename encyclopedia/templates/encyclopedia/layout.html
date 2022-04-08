@@ -12,10 +12,8 @@
         <div class="row">
             <div class="sidebar col-lg-2 col-md-3">
                 <h2>Wiki</h2>
-                <form action="{% url 'encyclopedia:search' %}" method="post">
-                    {% csrf_token %} 
+                <form action="{% url 'encyclepedia:search' keyword %}" method="post">
                     {{ form }}
-                    <input type="submit">
                 </form>
                 <div>
                     <a href="{% url 'index' %}">Home</a>
