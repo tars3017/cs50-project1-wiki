@@ -12,6 +12,8 @@ from django.utils.safestring import mark_safe
 
 from django.urls import reverse
 
+import random
+
 class NewSearchForm(forms.Form):
     word = forms.CharField(label="Search for", widget=forms.TextInput(attrs={'class': 'search'}))
 
@@ -105,4 +107,11 @@ def new_page(request):
         "form": NewSearchForm(),
         "new_forms": AddPageForm()
     })
+
+def random_page(request):
+    l = util.list_entries()
+    random.shuffle(l)
+    target = l[0]
+    print(target)
+    return load_content(request, target)
     
