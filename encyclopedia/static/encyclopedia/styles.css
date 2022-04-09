@@ -13,7 +13,7 @@ h1 {
 }
 
 textarea {
-    height: 90vh;
+    height: 65vh;
     width: 80%;
 }
 
@@ -25,7 +25,6 @@ textarea {
     width: 90%;
     font-size: 15px;
     line-height: 15px;
-    background-color: blue;
 }
 
 .sidebar {
@@ -36,4 +35,8 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.submit {
+    margin-top: 6px;
 }
