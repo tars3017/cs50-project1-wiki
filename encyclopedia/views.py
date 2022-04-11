@@ -21,6 +21,9 @@ class AddPageForm(forms.Form):
     page_title = forms.CharField(label=mark_safe("Title"))
     content = forms.CharField(label="Page content", widget=forms.Textarea() )
     
+class EditPageForm(forms.Form):
+    # page_title = forms.CharField(label=mark_safe("Title"))
+    content = forms.CharField(label="Page content", widget=forms.Textarea() )
 
 def index(request):
     return render(request, "encyclopedia/index.html", {
@@ -114,4 +117,35 @@ def random_page(request):
     target = l[0]
     print(target)
     return load_content(request, target)
+
+def edit(request, title):
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            ct = form.cleaned_data["content"]
+            # tt = form.cleaned_data["page_title"]
+            
+            # save content
+            new_file = open(f'./entries/{title}.md', 'w')
+            new_file.write(ct)
+            new_file.close()
+            return load_content(request, title)
+    
+    # get the file's origin content and put it to form
+    File = open(f'./entries/{title}.md', 'r')
+    ct = File.read()
+    File.close()
+    origin_content = EditPageForm()
+    # origin_content.fields['page_title'].initial = title
+    origin_content.fields['content'].initial = ct
+    # origin_content.page_title.value = title
+    # origin_content.content.value = ct
+    # print(origin_content.content)
+
+    return render(request, "encyclopedia/edit.html", {
+        "form": NewSearchForm(),
+        "new_forms": origin_content,
+        "target": title
+    })
+    
     
